@@ -67,24 +67,24 @@
     "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
     "paths": {
       "@daos/*": [
-        "src/daos/*"
+        "server/src/daos/*"
       ],
       "@entities/*": [
-        "src/entities/*"
+        "server/src/entities/*"
       ],
       "@shared/*": [
-        "src/shared/*"
+        "server/src/shared/*"
       ],
       "@server": [
-        "src/Server"
+        "server/src/Server"
       ]
     },
   },
   "include": [
-    "src/**/*.ts",
+    "server/src/**/*.ts",
     "spec/**/*.ts"
   ],
   "exclude": [
-    "src/public/"
+    "server/src/public"
   ]
 }
