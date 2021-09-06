@@ -1,6 +1,5 @@
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import path from 'path';
 import helmet from 'helmet';
 
 import express, { NextFunction, Request, Response } from 'express';
@@ -8,7 +7,7 @@ import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
 
 import BaseRouter from './routes';
-import logger from '@shared/Logger';
+import logger from './shared/Logger';
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;

@@ -1,0 +1,31 @@
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./server
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server:/usr/app
+      - /usr/server/src/app/node_modules
+    command: npm run start:dev
+  frontend:
+    build:
+      context: ./client
+    volumes:
+      - ./client:/usr/app
+      - /usr/client/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    command: npm start
+  database:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+  mongodb:
