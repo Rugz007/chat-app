@@ -10,6 +10,7 @@ services:
       - /usr/server/src/app/node_modules
     command: npm run start:dev
   frontend:
+    container_name: frontend
     build:
       context: ./client
     volumes:
@@ -21,6 +22,7 @@ services:
       - backend
     command: npm start
   database:
+    container_name: database    
     image: mongo
     ports:
       - 27017:27017

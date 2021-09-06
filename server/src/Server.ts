@@ -5,9 +5,17 @@ import helmet from 'helmet';
 import express, { NextFunction, Request, Response } from 'express';
 import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
-
 import BaseRouter from './routes';
 import logger from './shared/Logger';
+const mongoose = require('mongoose');
+
+const Users = require('./models/User');
+const connect = mongoose.connect('mongodb://database:27017/mongo', { useNewUrlParser: true });
+connect.then((db : any) => {
+    console.log("Connected correctly to server");
+  }, (err : any) => { console.log(err); });
+  
+
 
 const app = express();
 const { BAD_REQUEST } = StatusCodes;

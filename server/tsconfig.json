@@ -66,23 +66,17 @@
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
     "paths": {
-      "@daos/*": [
-        "server/src/daos/*"
-      ],
-      "@entities/*": [
-        "server/src/entities/*"
-      ],
       "@shared/*": [
         "server/src/shared/*"
       ],
       "@server": [
-        "server/src/Server"
+        "server/src/Server",
+        "server/src/types",
       ]
     },
   },
   "include": [
     "server/src/**/*.ts",
-    "spec/**/*.ts"
   ],
   "exclude": [
     "server/src/public"
