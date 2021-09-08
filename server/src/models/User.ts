@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import { Schema,model } from "mongoose";
+
 const UserSchema = new Schema(
   {
     name: {
@@ -15,4 +15,4 @@ const UserSchema = new Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("user", UserSchema);
+module.exports = model("UserSchema", UserSchema);

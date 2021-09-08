@@ -1,7 +1,10 @@
+import { ObjectId } from "mongoose";
+
 export interface IUser {
   name: String,
   username: String,
 }
 export interface IMessage{
-  message: String
+  sent_by: ObjectId,
+  message: string
 }
