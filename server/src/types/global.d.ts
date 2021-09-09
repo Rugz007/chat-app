@@ -17,6 +17,7 @@ export interface IChatSchema {
 
 export interface IMessageBody {
   message: string;
+  userID:string;
   roomID: string;
 }
 export interface ICreateRoomBody {

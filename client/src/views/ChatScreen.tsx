@@ -22,15 +22,20 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
     axios
       .post("http://localhost:8000/api/chat/create", {
         participants: ["rugved", "rajat"],
-        isGroup:false
+        isGroup: false,
       })
       .catch((error) => console.log(error));
   };
   const sendMessage = () => {
-    socket.current.emit("send message", {
-      roomID: "8883faef-5283-4ad6-a894-1ebcf861e319",
-      message: messageText,
-    },() =>setMessage(""));
+    socket.current.emit(
+      "send message",
+      {
+        roomID: "8883faef-5283-4ad6-a894-1ebcf861e319",
+        userID: name,
+        message: messageText,
+      },
+      () => setMessage("")
+    );
   };
   return (
     <Row style={{ paddingTop: "20px", height: "100%" }}>
