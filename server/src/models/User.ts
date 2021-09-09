@@ -1,18 +1,17 @@
 import { Schema,model } from "mongoose";
+import { IUserSchema } from "../types/global";
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<IUserSchema>(
   {
-    name: {
-      type: String,
-      required: true,
-    },
     username: {
       type: String,
       required: true,
+      unique:true,
     },
   },
   {
     timestamps: true,
   }
 );
-module.exports = model("UserSchema", UserSchema);
+const Users = model("UserSchema", UserSchema);
+export default Users;

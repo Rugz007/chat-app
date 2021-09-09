@@ -1,22 +1,20 @@
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
-
 import express, { NextFunction, Request, Response } from "express";
 import StatusCodes from "http-status-codes";
 import "express-async-errors";
-import BaseRouter from "./routes";
+import baseRouter from "./routes";
+import chatRouter from "./routes/chatRouter";
 import logger from "./shared/Logger";
 var cors = require("cors");
 const mongoose = require("mongoose");
-const Users = require("./models/User");
-const Chats = require("./models/Chat");
 const connect = mongoose.connect("mongodb://database:27017/mongo", {
   useNewUrlParser: true,
 });
 connect.then(
   (db: any) => {
-    console.log("Connected correctly to server");
+    console.log("Connected correctly to database server");
   },
   (err: any) => {
     console.log(err);
@@ -45,7 +43,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Add APIs
-app.use("/api", BaseRouter);
+app.use("/api", baseRouter);
+app.use("/api/chat", chatRouter);
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -73,9 +72,7 @@ const io = socket(server, {
   },
 });
 
-require('./sockets/chat').connectUser(io)
-
-
+require("./sockets/chatSocket").connectUser(io);
 
 // Export express instance
-module.exports = { app: app, server: server,io:io };
+module.exports = { app: app, server: server, io: io };

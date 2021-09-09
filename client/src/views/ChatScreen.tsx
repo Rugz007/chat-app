@@ -1,4 +1,5 @@
-import { Button, Card, Col, Input, Row ,message} from "antd";
+import { Button, Card, Col, Input, Row, message } from "antd";
+import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import "./styles/ChatScreen.css";
@@ -17,10 +18,19 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
     }
     socket.current.on("message", (message: string) => console.log(message));
   }, []);
-  // const establishConnection = () => {};
+  const createChat = () => {
+    axios
+      .post("http://localhost:8000/api/chat/create", {
+        participants: ["rugved", "rajat"],
+        isGroup:false
+      })
+      .catch((error) => console.log(error));
+  };
   const sendMessage = () => {
-    socket.current.emit("send message", messageText);
-    setMessage("");
+    socket.current.emit("send message", {
+      roomID: "8883faef-5283-4ad6-a894-1ebcf861e319",
+      message: messageText,
+    },() =>setMessage(""));
   };
   return (
     <Row style={{ paddingTop: "20px", height: "100%" }}>
@@ -37,7 +47,11 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
             value={friend}
             onChange={(e: any) => setFriend(e.target.value)}
           />
-          <Button type="primary" style={{ marginTop: "2%" }}>
+          <Button
+            type="primary"
+            style={{ marginTop: "2%" }}
+            onClick={createChat}
+          >
             Establish Connection
           </Button>
         </Card>

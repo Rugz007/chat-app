@@ -1,7 +1,13 @@
-import { Schema, model, ObjectId } from "mongoose";
+import { Schema, model } from "mongoose";
+import { IChatSchema } from "../types/global";
 
-const ChatSchema = new Schema(
+const ChatSchema = new Schema<IChatSchema>(
   {
+    roomID: {
+      type: String,
+      unique: true,
+      required: true,
+    },
     messages: [
       {
         type: Schema.Types.ObjectId,
@@ -10,13 +16,18 @@ const ChatSchema = new Schema(
     ],
     participants: [
       {
-        type:Schema.Types.ObjectId,
-        ref: "UserSchema"
-      }
-    ]
+        type: String,
+      },
+    ],
+    isGroup:
+    {
+      type:Boolean,
+      required:true,
+    }
   },
   {
     timestamps: true,
   }
 );
-module.exports = model("ChatSchema", ChatSchema);
+const Chats = model("ChatSchema", ChatSchema);
+export default Chats;

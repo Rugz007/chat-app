@@ -1,6 +1,6 @@
-import { IMessage } from "../types/global";
-import { Schema,model } from "mongoose";
-const MessageSchema = new Schema<IMessage>(
+import { IMessageSchema } from "../types/global";
+import { Schema, model } from "mongoose";
+const MessageSchema = new Schema<IMessageSchema>(
   {
     sent_by: {
       type: Schema.Types.ObjectId,
@@ -16,4 +16,5 @@ const MessageSchema = new Schema<IMessage>(
     timestamps: true,
   }
 );
-module.exports = model("MessageSchema", MessageSchema);
+const Messages = model("MessageSchema", MessageSchema);
+export default Messages;
