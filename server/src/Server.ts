@@ -7,6 +7,7 @@ import "express-async-errors";
 import baseRouter from "./routes";
 import chatRouter from "./routes/chatRouter";
 import logger from "./shared/Logger";
+import userRouter from "./routes/userRouter";
 var cors = require("cors");
 const mongoose = require("mongoose");
 const connect = mongoose.connect("mongodb://database:27017/mongo", {
@@ -45,6 +46,7 @@ if (process.env.NODE_ENV === "production") {
 // Add APIs
 app.use("/api", baseRouter);
 app.use("/api/chat", chatRouter);
+app.use("/api/user", userRouter);
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,10 +56,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     error: err.message,
   });
 });
-
-/************************************************************************************
- *                              Serve front-end content
- ***********************************************************************************/
 
 app.get("*", (req: Request, res: Response) => {
   res.json({ Message: "Hello World" });

@@ -1,11 +1,14 @@
-import { Button, Card, Col, Input, Row, message } from "antd";
+import { Button, Card, Col, Input, Row } from "antd";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import "./styles/ChatScreen.css";
-interface ChatScreenProps {}
+interface ChatScreenProps {
+  username: string;
+  userID: string;
+}
 
-export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
+export const ChatScreen: React.FC<ChatScreenProps> = ({ username,userID }) => {
   const [name, setName] = useState<string>("");
   const [friend, setFriend] = useState<string>("");
   const [messageText, setMessage] = useState<string>("");
@@ -17,6 +20,16 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
       console.log("error");
     }
     socket.current.on("message", (message: string) => console.log(message));
+    socket.current.emit(
+      "connect rooms",
+      { userID: userID },
+      (message: string) => console.log(message)
+    );
+    // axios
+    //   .get(
+    //     "http://localhost:8000/api/chat/fetch?roomID=8883faef-5283-4ad6-a894-1ebcf861e319"
+    //   )
+    //   .then((response: any) => console.log(response.data.chat.messages));
   }, []);
   const createChat = () => {
     axios
@@ -31,7 +44,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
       "send message",
       {
         roomID: "8883faef-5283-4ad6-a894-1ebcf861e319",
-        userID: name,
+        userID: userID,
         message: messageText,
       },
       () => setMessage("")
@@ -41,11 +54,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({}) => {
     <Row style={{ paddingTop: "20px", height: "100%" }}>
       <Col span={8} className="card">
         <Card title="Users" className="curve">
-          <Input
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e: any) => setName(e.target.value)}
-          />
+          <h2>Welcome {username}!</h2>
           <Input
             style={{ marginTop: "2%" }}
             placeholder="Enter friend name"
