@@ -10,8 +10,6 @@ export const Login: RequestHandler = async (
   var user = await Users.findOne({ username: req.body.username });
   if (!user) {
     user = await Users.create({ username: req.body.username });
-    console.log(user)
-    res.status(200).json(user);
   }
   res.status(200).json(user);
 };

@@ -8,7 +8,7 @@ WORKDIR /usr/app
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN npm install -y
 # If you are building your code for production
 # RUN npm install --only=production
 
@@ -16,4 +16,3 @@ RUN npm install
 COPY . .
 
 EXPOSE 3000
-CMD ["npm","start"]

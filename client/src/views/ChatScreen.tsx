@@ -1,4 +1,4 @@
-import { Button, Card, Col, Input, Row } from "antd";
+import { Avatar, Button, Card, Col, Input, Row } from "antd";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
@@ -68,6 +68,12 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({ username,userID }) => {
           >
             Establish Connection
           </Button>
+          
+        </Card>
+        <Card title='Chats' className="curve">
+          <div style={{textAlign:'left'}}>
+            <Avatar />
+          </div>
         </Card>
       </Col>
       <Col span={16} className="card">
